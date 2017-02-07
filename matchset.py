@@ -73,4 +73,18 @@ def test():
     assert search(('alt', ('lit', 'b'), ('lit', 'c')), 'ab') == 'b'
     return 'tests pass'
 
-print (test())
+def test_search():
+    a, b, c = lit('a'), lit('b'), lit('c')
+    abcstars = seq(star(a), seq(star(b), star(c)))
+    dotstar = star(dot)
+    assert search(lit('def'), 'abcdefg') == 'def'
+    assert search(seq(lit('def'), eol), 'abcdef') == 'def'
+    assert search(seq(lit('def'), eol), 'abcdefg') == None
+    assert search(a, 'not the start') == 'a'
+    assert match(a, 'not the start') == None
+    assert match(abcstars, 'aaabbbccccccdef') == 'aaabbbcccccc'
+    assert match(abcstars, 'junk') == ''
+    return 'test_search passes'
+    
+print(test())
+print(test_search())
